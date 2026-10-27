@@ -1,1 +1,253 @@
-teste
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+Emotus
+
+:root{--bg:#F7F5F2;--card:#FFFFFF;--text:#1C1B22;--muted:#8A8794;--line:#ECE9E4;--accent:#6C5CE7;--accent2:#A29BFE;--shadow:0 8px 30px rgba(28,27,34,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#0F0E14;--card:#1A1922;--text:#F2F1F6;--muted:#8E8C99;--line:#2A2834;--shadow:0 8px 30px rgba(0,0,0,.3)}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Inter,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:calc(env(safe-area-inset-top) + 16px) 20px calc(env(safe-area-inset-bottom) + 110px)}
+#glow{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.6;transition:background 1s}
+h1{font-size:30px;font-weight:700;letter-spacing:-.5px;margin-top:4px}
+h2{font-size:19px;font-weight:700;margin:26px 0 12px;letter-spacing:-.3px}
+.sub{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.card{background:var(--card);border-radius:24px;padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.muted{color:var(--muted)}.small{font-size:13px;margin-top:6px;line-height:1.4}
+.hero{margin-top:18px;padding:20px}
+.big{font-size:44px;font-weight:800;letter-spacing:-1px}.big span{font-size:20px;color:var(--muted);font-weight:600}
+.ring{width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--line) 0);display:grid;place-items:center}
+.ring::after{content:'';width:48px;height:48px;border-radius:50%;background:var(--card)}
+.slots{display:flex;justify-content:space-between;margin:18px 0 10px;gap:6px}
+.slot{border:0;background:var(--line);flex:1;max-width:60px;height:70px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--text)}
+.slot b{font-size:20px}.slot small{font-size:12px;color:var(--muted);font-weight:600}
+.slot.ok{background:linear-gradient(160deg,var(--accent2),var(--accent))}.slot.ok small{color:#fff}
+.slot.due{background:transparent;border:2px dashed var(--accent)}.slot.due b{color:var(--accent)}
+.cta{width:100%;border:0;border-radius:20px;padding:18px;font-size:17px;font-weight:600;color:#fff;background:linear-gradient(135deg,#8E7CFF,#6C5CE7);box-shadow:0 10px 30px rgba(108,92,231,.35);margin-top:6px}
+.cta:active,.chip:active,.slot:active{transform:scale(.97)}
+.entry{border-left:5px solid var(--c)}
+.time{font-weight:700;font-size:17px}
+.tag{font-size:12px;font-weight:600;padding:5px 10px;border-radius:99px;background:var(--line);color:var(--muted)}
+.emos{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.pill{padding:6px 10px;border-radius:99px;font-size:14px;background:color-mix(in srgb,var(--c) 20%,transparent)}
+.note{margin-top:10px;font-size:15px;line-height:1.45;white-space:pre-wrap}
+.empty{padding:30px;text-align:center;color:var(--muted);border:2px dashed var(--line);border-radius:24px}
+.del{border:0;background:none;color:var(--muted);font-size:13px;margin-top:10px}
+#sheet{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .3s}
+#sheet.open{opacity:1;pointer-events:auto}
+#sheetBody{position:absolute;left:0;right:0;bottom:0;top:calc(env(safe-area-inset-top) + 20px);background:var(--bg);border-radius:28px 28px 0 0;padding:14px 20px calc(env(safe-area-inset-bottom) + 30px);overflow-y:auto;transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.9,.3,1)}
+#sheet.open #sheetBody{transform:none}
+.grab{width:40px;height:5px;border-radius:9px;background:var(--line);margin:0 auto 14px}
+.x{border:0;background:var(--line);width:34px;height:34px;border-radius:50%;color:var(--text)}
+.gname{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin:18px 0 8px}
+.gname i{width:10px;height:10px;border-radius:50%}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--text);padding:9px 13px;border-radius:99px;font-size:15px;transition:.2s}
+.chip.on{background:var(--c);border-color:var(--c);color:#fff;transform:scale(1.04);box-shadow:0 6px 18px color-mix(in srgb,var(--c) 45%,transparent)}
+input[type=range]{width:100%;margin-top:12px;accent-color:var(--c)}
+.val{font-weight:700;color:var(--c)}
+textarea{width:100%;min-height:110px;border:1.5px solid var(--line);background:var(--card);color:var(--text);border-radius:18px;padding:14px;font-family:inherit;font-size:16px;resize:vertical}
+nav{position:fixed;left:14px;right:14px;bottom:calc(env(safe-area-inset-bottom) + 10px);height:68px;border-radius:26px;background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-around;z-index:40;border:1px solid var(--line)}
+nav button{border:0;background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600}
+nav button span{font-size:20px}
+nav button.on{color:var(--accent)}
+nav .plus{width:56px;height:56px;border-radius:20px;background:linear-gradient(135deg,#8E7CFF,#6C5CE7);color:#fff;font-size:30px;margin-top:-26px;box-shadow:0 10px 24px rgba(108,92,231,.45);justify-content:center}
+.seg{display:flex;background:var(--line);border-radius:14px;padding:4px;margin-top:14px}
+.seg button{flex:1;border:0;background:none;padding:9px;border-radius:11px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--card);color:var(--text);box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.stat b{font-size:28px;display:block;font-weight:800;margin-top:4px}
+.bar{height:10px;border-radius:9px;background:var(--line);overflow:hidden;margin:6px 0 12px}
+.bar i{display:block;height:100%;background:var(--c);border-radius:9px}
+.days{display:flex;justify-content:space-between;align-items:flex-end;gap:6px;min-height:120px}
+.day{flex:1;display:flex;flex-direction:column-reverse;align-items:center;gap:4px}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--c)}
+.day small{font-size:11px;color:var(--muted);margin-top:6px}
+.btn{display:block;width:100%;border:0;background:var(--line);color:var(--text);padding:14px;border-radius:16px;font-size:15px;font-weight:600;margin-top:10px}
+.danger{color:#E8575A}
+#toast{position:fixed;top:calc(env(safe-area-inset-top) + 12px);left:50%;transform:translate(-50%,-150%);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:99px;font-weight:600;font-size:14px;z-index:99;transition:transform .35s}
+#toast.show{transform:translate(-50%,0)}
+
+
+
+
+
+
+
+  ☀︎Hoje
+  ☰Histórico
+  ＋
+  ◔Insights
+  ◉Perfil
+
+
+
+
+
+
+const GROUPS=[
+ {n:'Agradáveis',c:'#F2B53A',e:[['Alegre','😄'],['Calmo','😌'],['Satisfeito','🙂'],['Esperançoso','🌱'],['Animado','🤩'],['Grato','🙏'],['Aliviado','😮‍💨']]},
+ {n:'Ansiedade e medo',c:'#F08A3C',e:[['Ansioso','😰'],['Preocupado','😟'],['Tenso','😬'],['Inseguro','🫣'],['Com medo','😨'],['Sobrecarregado','🤯']]},
+ {n:'Tristeza',c:'#5B8DEF',e:[['Triste','😢'],['Desanimado','😞'],['Solitário','🥀'],['Frustrado','😣'],['Decepcionado','😔'],['Com culpa','😓']]},
+ {n:'Raiva e aversão',c:'#E8575A',e:[['Irritado','😠'],['Com raiva','😡'],['Impaciente','😤'],['Incomodado','😒'],['Ressentido','😑']]},
+ {n:'Baixa ativação',c:'#9AA0AE',e:[['Neutro','😐'],['Cansado','😴'],['Entediado','🥱'],['Indiferente','😶'],['Confuso','😕']]}
+];
+const CTX=['Trabalho','Família','Relacionamento','Saúde','Sono','Dinheiro','Social','Casa','Não sei'];
+const SLOTS=['07:00','11:00','14:00','17:00','20:00'];
+const KEY='emotus_v1';
+const EMO={};GROUPS.forEach(g=>g.e.forEach(([n,e])=>EMO[n]={e,c:g.c}));
+let data=JSON.parse(localStorage.getItem(KEY)||'[]');
+data.forEach(x=>x.emotions.forEach(m=>{if(!EMO[m.n])EMO[m.n]={e:m.e,c:m.c}}));
+let cur='home',period=7,st;
+
+const $=s=>document.querySelector(s);
+const save=()=>localStorage.setItem(KEY,JSON.stringify(data));
+const pad=n=>String(n).padStart(2,'0');
+const dayKey=d=>{d=new Date(d);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const hm=d=>{d=new Date(d);return pad(d.getHours())+':'+pad(d.getMinutes())};
+const toMin=s=>{const[h,m]=s.split(':');return +h*60+ +m};
+const nowMin=()=>{const d=new Date();return d.getHours()*60+d.getMinutes()};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&','<':'<','>':'>','"':'"',"'":'''}[c]));
+const clean=s=>(s||'').trim().replace(/['"<>\\]/g,'').slice(0,30);
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000)}
+function todayEntries(){const k=dayKey(new Date());return data.filter(x=>dayKey(x.ts)===k)}
+function slotDone(s){return todayEntries().find(x=>x.slot===s)}
+function currentSlot(){let s=null;SLOTS.forEach(x=>{if(nowMin()>=toMin(x))s=x});return s}
+
+function go(v){cur=v;document.querySelectorAll('nav [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));({home:renderHome,history:renderHistory,insights:renderInsights,profile:renderProfile})[v]();window.scrollTo(0,0)}
+
+function entryCard(x,canDel){
+ return `<div class="card entry" style="--c:${x.emotions[0].c}">
+  <div class="row"><div class="time">${hm(x.ts)}</div><span class="tag">${x.slot?'Check-in '+x.slot:'Espontâneo'}</span></div>
+  <div class="emos">${x.emotions.map(m=>`<span class="pill" style="--c:${m.c}">${m.e} ${esc(m.n)} <b>${m.i}</b></span>`).join('')}</div>
+  ${x.contexts.length?`<div class="muted small">🏷️ ${x.contexts.map(esc).join(' · ')}</div>`:''}
+  <div class="muted small">⚡ Energia ${x.energy}/10</div>
+  ${x.note?`<p class="note">${esc(x.note)}</p>`:''}
+  ${canDel?`<button class="del" onclick="del(${x.id})">Excluir</button>`:''}</div>`}
+
+function paintGlow(ents){
+ const pos=['15% 8%','85% 22%','20% 58%','82% 78%','50% 40%'];
+ const cs=ents.slice(-5).map(x=>x.emotions[0].c);
+ $('#glow').style.background=cs.length?cs.map((c,i)=>`radial-gradient(circle at ${pos[i]},${c}55,transparent 45%)`).join(','):'radial-gradient(circle at 80% 0%,#A29BFE44,transparent 50%)'}
+
+function renderHome(){
+ const d=new Date(),h=d.getHours();
+ const greet=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+ const ents=todayEntries().sort((a,b)=>a.ts-b.ts);
+ const done=SLOTS.filter(slotDone).length;
+ const next=SLOTS.find(s=>toMin(s)>nowMin());
+ $('#view').innerHTML=`<p class="sub">${d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'short'})}</p>
+ <h1>${greet}, Raul</h1>
+ <div class="card hero">
+  <div class="row"><div><div class="muted">Check-ins de hoje</div><div class="big">${done}<span>/5</span></div></div><div class="ring" style="--p:${done*20}"></div></div>
+  <div class="slots">${SLOTS.map(s=>{const e=slotDone(s),past=toMin(s)<=nowMin();
+   return `<button class="slot ${e?'ok':past?'due':''}" onclick="${e?'':`openCheck('${s}')`}"><b>${e?e.emotions[0].e:past?'!':'○'}</b><small>${s.slice(0,2)}h</small></button>`}).join('')}</div>
+  <div class="muted small">${next?'Próximo check-in às '+next:'Check-ins de hoje encerrados'}</div>
+ </div>
+ <button class="cta" onclick="openCheck()">＋ Registrar agora</button>
+ <h2>Hoje</h2>${ents.length?ents.map(x=>entryCard(x)).join(''):'<div class="empty">Nenhum registro ainda hoje.</div>'}`;
+ paintGlow(ents)}
+
+function openCheck(slot){const cs=currentSlot();st={slot:slot||(cs&&!slotDone(cs)?cs:null),sel:{},ctx:new Set(),energy:5,note:''};renderSheet();$('#sheet').classList.add('open');$('#sheetBody').scrollTop=0}
+function closeSheet(){$('#sheet').classList.remove('open')}
+function toggleEmo(n){if(st.sel[n]!=null)delete st.sel[n];else st.sel[n]=5;renderSheet()}
+function addOther(){const n=clean(prompt('Qual emoção?'));if(!n)return;if(!EMO[n])EMO[n]={e:'💭',c:'#A29BFE'};st.sel[n]=5;renderSheet()}
+function toggleCtx(c){st.ctx.has(c)?st.ctx.delete(c):st.ctx.add(c);renderSheet()}
+function addCtx(){const c=clean(prompt('Qual contexto?'));if(c){st.ctx.add(c);renderSheet()}}
+
+function renderSheet(){
+ const sel=Object.entries(st.sel);
+ const ctxList=[...CTX,...[...st.ctx].filter(c=>!CTX.includes(c))];
+ $('#sheetBody').innerHTML=`<div class="grab"></div>
+ <div class="row"><span class="tag">${st.slot?'Check-in das '+st.slot:'Registro espontâneo'}</span><button class="x" onclick="closeSheet()">✕</button></div>
+ <h1 style="margin-top:14px">Como você está agora?</h1><p class="muted small">Escolha uma ou mais emoções</p>
+ ${GROUPS.map(g=>`<div class="gname"><i style="background:${g.c}"></i>${g.n}</div><div class="chips">${g.e.map(([n,e])=>`<button class="chip ${st.sel[n]!=null?'on':''}" style="--c:${g.c}" onclick="toggleEmo('${n}')">${e} ${n}</button>`).join('')}</div>`).join('')}
+ <div class="chips" style="margin-top:14px"><button class="chip" onclick="addOther()">＋ Outra emoção</button></div>
+ ${sel.length?`<h2>Intensidade</h2>${sel.map(([n,i],k)=>{const m=EMO[n];return `<div class="card" style="--c:${m.c}"><div class="row"><b>${m.e} ${esc(n)}</b><span><span class="val" id="v${k}">${i}/10</span> <button class="x" style="width:28px;height:28px;margin-left:6px" onclick="toggleEmo('${n}')">✕</button></span></div><input type="range" min="1" max="10" value="${i}" oninput="st.sel['${n}']=+this.value;$('#v${k}').textContent=this.value+'/10'"></div>`}).join('')}`:''}
+ <h2>O que está influenciando?</h2>
+ <div class="chips">${ctxList.map(c=>`<button class="chip ${st.ctx.has(c)?'on':''}" style="--c:#6C5CE7" onclick="toggleCtx('${c}')">${esc(c)}</button>`).join('')}<button class="chip" onclick="addCtx()">＋ Outro</button></div>
+ <h2>Energia</h2>
+ <div class="card" style="--c:#6C5CE7"><div class="row"><span class="muted small">🪫 Baixa</span><span class="val" id="vE">${st.energy}/10</span><span class="muted small">Alta 🔋</span></div><input type="range" min="1" max="10" value="${st.energy}" oninput="st.energy=+this.value;$('#vE').textContent=this.value+'/10'"></div>
+ <h2>Quer contar o que aconteceu?</h2>
+ <textarea placeholder="Opcional" oninput="st.note=this.value">${esc(st.note)}</textarea>
+ <button class="cta" style="margin-top:20px" onclick="saveEntry()">Salvar registro</button>`}
+
+function saveEntry(){
+ const names=Object.keys(st.sel);
+ if(!names.length){toast('Escolha ao menos uma emoção');return}
+ data.push({id:Date.now(),ts:Date.now(),slot:st.slot,
+  emotions:names.map(n=>({n,e:EMO[n].e,c:EMO[n].c,i:st.sel[n]})).sort((a,b)=>b.i-a.i),
+  contexts:[...st.ctx],energy:st.energy,note:st.note.trim()});
+ save();closeSheet();toast('Registro salvo ✓');go(cur)}
+
+function del(id){if(confirm('Excluir este registro?')){data=data.filter(x=>x.id!==id);save();go(cur)}}
+
+function renderHistory(){
+ const g={};[...data].sort((a,b)=>b.ts-a.ts).forEach(x=>(g[dayKey(x.ts)]=g[dayKey(x.ts)]||[]).push(x));
+ $('#view').innerHTML=`<p class="sub">${data.length} registros</p><h1>Histórico</h1>`+(data.length?Object.entries(g).map(([k,l])=>`<h2>${new Date(k+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})}</h2>`+l.map(x=>entryCard(x,true)).join('')).join(''):'<div class="empty" style="margin-top:20px">Seus registros aparecerão aqui.</div>')}
+
+function renderInsights(){
+ const ents=data.filter(x=>x.ts>=Date.now()-period*864e5);
+ let h=`<p class="sub">Seus padrões</p><h1>Insights</h1><div class="seg">${[7,30].map(p=>`<button class="${p===period?'on':''}" onclick="period=${p};renderInsights()">${p} dias</button>`).join('')}</div>`;
+ if(!ents.length){$('#view').innerHTML=h+'<div class="empty" style="margin-top:20px">Ainda não há registros neste período.</div>';return}
+ const first=Math.min(...data.map(x=>x.ts));
+ const days=Math.min(period,Math.floor((Date.now()-new Date(dayKey(first)+'T00:00').getTime())/864e5)+1);
+ const sched=ents.filter(x=>x.slot).length;
+ const avgE=(ents.reduce((a,x)=>a+x.energy,0)/ents.length).toFixed(1);
+ const em={};ents.forEach(x=>x.emotions.forEach(m=>{em[m.n]=em[m.n]||{n:m.n,e:m.e,c:m.c,k:0,s:0};em[m.n].k++;em[m.n].s+=m.i}));
+ const top=Object.values(em).sort((a,b)=>b.k-a.k).slice(0,6);
+ const cx={};ents.forEach(x=>x.contexts.forEach(c=>cx[c]=(cx[c]||0)+1));
+ const ctop=Object.entries(cx).sort((a,b)=>b[1]-a[1]).slice(0,6);
+ const cols=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dayKey(d);
+  const de=data.filter(x=>dayKey(x.ts)===k).sort((a,b)=>a.ts-b.ts);
+  cols.push(`<div class="day"><small>${d.toLocaleDateString('pt-BR',{weekday:'short'}).slice(0,3)}</small>${de.map(x=>`<div class="dot" style="--c:${x.emotions[0].c}"></div>`).join('')}</div>`)}
+ const parts=[['Manhã',0,12],['Tarde',12,18],['Noite',18,24]].map(([n,a,b])=>{const c={};
+  ents.filter(x=>{const hh=new Date(x.ts).getHours();return hh>=a&&hh<b}).forEach(x=>x.emotions.forEach(m=>c[m.n]=(c[m.n]||0)+1));
+  const t=Object.entries(c).sort((p,q)=>q[1]-p[1])[0];
+  return `<div class="card"><div class="muted small">${n}</div><div style="font-size:26px;margin-top:6px">${t?EMO[t[0]].e:'—'}</div><div class="small">${t?esc(t[0]):''}</div></div>`});
+ h+=`<div class="grid">
+  <div class="card stat"><div class="muted small">Registros</div><b>${ents.length}</b></div>
+  <div class="card stat"><div class="muted small">Check-ins feitos</div><b>${sched}<span class="muted" style="font-size:16px">/${days*5}</span></b></div>
+  <div class="card stat"><div class="muted small">Espontâneos</div><b>${ents.length-sched}</b></div>
+  <div class="card stat"><div class="muted small">Energia média</div><b>${avgE}</b></div></div>
+ <h2>Últimos 7 dias</h2><div class="card"><div class="days">${cols.join('')}</div></div>
+ <h2>Emoções mais registradas</h2><div class="card">${top.map(t=>`<div class="row" style="--c:${t.c}"><span>${t.e} ${esc(t.n)}</span><span class="muted small">${t.k}× · média ${(t.s/t.k).toFixed(1)}</span></div><div class="bar" style="--c:${t.c}"><i style="width:${t.k/top[0].k*100}%"></i></div>`).join('')}</div>
+ <h2>Por período do dia</h2><div class="grid3">${parts.join('')}</div>
+ ${ctop.length?`<h2>Contextos mais citados</h2><div class="card">${ctop.map(([c,k])=>`<div class="row"><span>${esc(c)}</span><span class="muted small">${k}×</span></div><div class="bar" style="--c:#6C5CE7"><i style="width:${k/ctop[0][1]*100}%"></i></div>`).join('')}</div>`:''}
+ <p class="muted small" style="text-align:center;margin-top:10px">Os insights mostram apenas o que você registrou. Não são diagnóstico.</p>`;
+ $('#view').innerHTML=h}
+
+function renderProfile(){
+ $('#view').innerHTML=`<p class="sub">Configurações</p><h1>Perfil</h1>
+ <div class="card" style="margin-top:18px"><b>Horários dos check-ins</b><div class="chips" style="margin-top:12px">${SLOTS.map(s=>`<span class="tag">${s}</span>`).join('')}</div><p class="muted small">Os lembretes no iPhone serão ativados na próxima etapa.</p></div>
+ <div class="card"><b>Seus dados</b><p class="muted small">Nesta versão, os registros ficam salvos apenas neste iPhone. Na próxima etapa vamos conectar o app ao banco de dados para sua terapeuta ter acesso.</p>
+  <button class="btn" onclick="exportCSV()">Exportar planilha (CSV)</button>
+  <button class="btn" onclick="exportJSON()">Fazer backup</button>
+  <button class="btn" onclick="$('#imp').click()">Restaurar backup</button>
+  <input type="file" id="imp" accept=".json,application/json" hidden onchange="importJSON(this)">
+  <button class="btn danger" onclick="wipe()">Apagar todos os registros</button></div>
+ <p class="muted small" style="text-align:center">Emotus · v1.0</p>`}
+
+function dl(name,txt,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click()}
+function exportJSON(){dl('emotus-backup.json',JSON.stringify(data),'application/json')}
+function exportCSV(){
+ const rows=[['data','hora','tipo','emocoes','contextos','energia','observacao']];
+ [...data].sort((a,b)=>a.ts-b.ts).forEach(x=>rows.push([dayKey(x.ts),hm(x.ts),x.slot?'Check-in '+x.slot:'Espontâneo',x.emotions.map(m=>m.n+' '+m.i).join('; '),x.contexts.join('; '),x.energy,x.note]));
+ dl('emotus.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n'),'text/csv')}
+function importJSON(inp){const f=inp.files[0];if(!f)return;f.text().then(t=>{try{const d=JSON.parse(t);if(!Array.isArray(d))throw 0;const ids=new Set(data.map(x=>x.id));d.forEach(x=>{if(!ids.has(x.id))data.push(x)});save();toast('Backup restaurado ✓');go('profile')}catch(e){toast('Arquivo inválido')}})}
+function wipe(){if(confirm('Apagar TODOS os registros deste iPhone?')){data=[];save();go('home')}}
+
+go('home');
+setInterval(()=>{if(cur==='home'&&!$('#sheet').classList.contains('open'))renderHome()},60000);
+</script>
+</body>
+</html>
+
