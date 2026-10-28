@@ -141,7 +141,7 @@ function paintGlow(ents){
 
 function renderHome(){
  const d=new Date(),h=d.getHours();
- const greet=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+ const greet=h<5?'Boa noite':h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
  const ents=todayEntries().sort((a,b)=>a.ts-b.ts);
  const done=SLOTS.filter(slotDone).length;
  const next=SLOTS.find(s=>toMin(s)>nowMin());
