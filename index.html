@@ -8,9 +8,6 @@
 <meta name="apple-mobile-web-app-title" content="Emotus">
 <meta name="theme-color" content="#F7F5F2">
 <title>Emotus</title>
-icon.png
-icon.png
-  
 <style>
 :root{--bg:#F7F5F2;--card:#FFFFFF;--text:#1C1B22;--muted:#8A8794;--line:#ECE9E4;--accent:#6C5CE7;--accent2:#A29BFE;--shadow:0 8px 30px rgba(28,27,34,.06)}
 @media (prefers-color-scheme:dark){:root{--bg:#0F0E14;--card:#1A1922;--text:#F2F1F6;--muted:#8E8C99;--line:#2A2834;--shadow:0 8px 30px rgba(0,0,0,.3)}}
@@ -248,6 +245,7 @@ function exportCSV(){
  dl('emotus.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n'),'text/csv')}
 function importJSON(inp){const f=inp.files[0];if(!f)return;f.text().then(t=>{try{const d=JSON.parse(t);if(!Array.isArray(d))throw 0;const ids=new Set(data.map(x=>x.id));d.forEach(x=>{if(!ids.has(x.id))data.push(x)});save();toast('Backup restaurado ✓');go('profile')}catch(e){toast('Arquivo inválido')}})}
 function wipe(){if(confirm('Apagar TODOS os registros deste iPhone?')){data=[];save();go('home')}}
+['apple-touch-icon','icon'].forEach(r=>{const l=document.createElement('link');l.rel=r;l.href='icon.png';document.head.appendChild(l)});
 
 go('home');
 setInterval(()=>{if(cur==='home'&&!$('#sheet').classList.contains('open'))renderHome()},60000);
