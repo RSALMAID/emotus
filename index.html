@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-Emotus
-
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Emotus">
+<meta name="theme-color" content="#F7F5F2">
+<title>Emotus</title>
+<style>
 :root{--bg:#F7F5F2;--card:#FFFFFF;--text:#1C1B22;--muted:#8A8794;--line:#ECE9E4;--accent:#6C5CE7;--accent2:#A29BFE;--shadow:0 8px 30px rgba(28,27,34,.06)}
 @media (prefers-color-scheme:dark){:root{--bg:#0F0E14;--card:#1A1922;--text:#F2F1F6;--muted:#8E8C99;--line:#2A2834;--shadow:0 8px 30px rgba(0,0,0,.3)}}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -75,23 +75,24 @@ nav .plus{width:56px;height:56px;border-radius:20px;background:linear-gradient(1
 .danger{color:#E8575A}
 #toast{position:fixed;top:calc(env(safe-area-inset-top) + 12px);left:50%;transform:translate(-50%,-150%);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:99px;font-weight:600;font-size:14px;z-index:99;transition:transform .35s}
 #toast.show{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div id="glow"></div>
+<main id="view"></main>
 
+<nav>
+  <button data-v="home" onclick="go('home')"><span>☀︎</span>Hoje</button>
+  <button data-v="history" onclick="go('history')"><span>☰</span>Histórico</button>
+  <button class="plus" onclick="openCheck()">＋</button>
+  <button data-v="insights" onclick="go('insights')"><span>◔</span>Insights</button>
+  <button data-v="profile" onclick="go('profile')"><span>◉</span>Perfil</button>
+</nav>
 
+<div id="sheet" onclick="if(event.target===this)closeSheet()"><div id="sheetBody"></div></div>
+<div id="toast"></div>
 
-
-
-
-
-  ☀︎Hoje
-  ☰Histórico
-  ＋
-  ◔Insights
-  ◉Perfil
-
-
-
-
-
+<script>
 
 const GROUPS=[
  {n:'Agradáveis',c:'#F2B53A',e:[['Alegre','😄'],['Calmo','😌'],['Satisfeito','🙂'],['Esperançoso','🌱'],['Animado','🤩'],['Grato','🙏'],['Aliviado','😮‍💨']]},
